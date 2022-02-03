@@ -1,0 +1,72 @@
+<template>
+  <div class="post-container" v-if="isActive">
+    <div class="post">
+      <div class="post-title">{{ title }}</div>
+      <div class="post-content">{{ content }}</div>
+    </div>
+    <button type="submit" class="delete-button" @click="deletePost">X</button>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Note",
+  props: ["title", "content", "id", "userId"],
+  data() {
+    return {
+      isActive: true,
+    };
+  },
+  methods: {
+    deletePost() {
+      axios({
+        method: "delete",
+        url: "http://127.0.0.1:8000/notes/delete/",
+        data: { user_id: this.userId, note_id: this.id },
+      }).then(() => {
+        this.$emit("noteDeleted");
+      });
+    },
+  },
+};
+</script>
+
+<style scoped>
+.post-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 24%;
+  margin-bottom: 18px;
+  word-wrap: break-word;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  overflow: auto;
+}
+
+.post-title {
+  color: blue;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.post-content {
+  font-size: 20px;
+}
+
+.delete-button {
+  align-self: right;
+  background-color: red;
+  font-size: 15px;
+  color: white;
+  height: 20px;
+  width: 20px;
+  flex: none;
+}
+</style>
