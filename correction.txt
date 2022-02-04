@@ -1,0 +1,48 @@
+Nom complet: Doguereau Enzo
+Numéro de dossier (NI): 536906872
+Estimation du temps de réalisation: 20 heures
+URL pour accéder à votre application: 
+
+
+Fonctionnalités
+---------------
+/20 : Rapport PDF
+    Commentaires :
+
+/5 : Routage d'URLs
+    Commentaires :
+
+/10 : Gestion de formulaires
+    Commentaires :
+
+/10 : Validation de données
+    Commentaires :
+
+/10 : Sauvegarde de données
+    Commentaires :
+
+/10 : Usage des cookies
+    Commentaires :
+
+/10 : Usage du localStorage
+    Commentaires :
+
+/10 : Déploiement
+    Commentaires :
+
+/5 : Qualité du code (noms de variables, style, commentaires, etc).
+    Commentaires :
+
+
+
+Pénalités pour non-respect des consignes
+----------------------------------------
+
+
+
+Autres commentaires du correcteur
+---------------------------------
+
+
+
+Total: /90
