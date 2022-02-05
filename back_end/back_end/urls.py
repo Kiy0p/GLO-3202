@@ -20,9 +20,9 @@ from notes.views import ApiOverview, GetAllNotes, DeleteNote, CreateNote
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-overview/', ApiOverview),
-    path('notes/', GetAllNotes),
-    path('notes/delete/', DeleteNote),
-    path('notes/create/', CreateNote),
+    path('api/admin/', admin.site.urls),
+    path('api/api-overview/', ApiOverview),
+    path('api/notes/', GetAllNotes),
+    path('api/notes/delete/', DeleteNote),
+    path('api/notes/create/', CreateNote),
 ]

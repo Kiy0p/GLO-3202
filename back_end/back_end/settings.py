@@ -25,7 +25,7 @@ SECRET_KEY = 'n9(408qaozwh=b=kxs7ss%=y(f-b@$97!74=653um*-nn65tri'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'security-web-3202.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,10 +48,10 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # Thiry-party
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -131,8 +131,16 @@ STATIC_URL = '/static/'
 
 # Personal
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
+    "http://127.0.0.1:8080",
+    "https://127.0.0.1:8080",
+    "http://127.0.0.1:3000",
+    "https://127.0.0.1:3000",
+    "http://20.199.116.68",
+    "https://20.199.116.68",
+    "http://5.10.0.139",
+    "https://5.10.0.139",
 ]

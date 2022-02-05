@@ -22,10 +22,12 @@ export default {
     deletePost() {
       axios({
         method: "delete",
-        url: "http://127.0.0.1:8000/notes/delete/",
+        url: "http://20.199.116.68:80/api/notes/delete/",
         data: { user_id: this.userId, note_id: this.id },
       }).then(() => {
         this.$emit("noteDeleted");
+      }).catch((error) => {
+        console.log(error);
       });
     },
   },

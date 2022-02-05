@@ -76,10 +76,12 @@ export default {
       console.log("reloading");
       await axios({
         method: "post",
-        url: "http://127.0.0.1:8000/notes/",
+        url: "http://20.199.116.68:80/api/notes/",
         data: { user_id: this.userId },
       }).then((response) => {
-        this.notes = response.data;
+	this.notes = response.data;
+      }).catch((error) => {
+        console.log(error);
       });
     },
 
@@ -88,7 +90,7 @@ export default {
       var content = document.getElementById("form-content").value;
       await axios({
         method: "post",
-        url: "http://127.0.0.1:8000/notes/create/",
+        url: "http://20.199.116.68:80/api/notes/create/",
         data: {
           user_id: this.userId,
           note_title: title,
@@ -98,6 +100,8 @@ export default {
         if (response.statusCode == 200) {
           this.getNotes();
         }
+      }).catch((error) => {
+        console.log(error);
       });
     },
 
