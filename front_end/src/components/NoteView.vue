@@ -11,7 +11,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Note",
+  name: "NoteView",
   props: ["title", "content", "id", "userId"],
   data() {
     return {
@@ -22,13 +22,15 @@ export default {
     deletePost() {
       axios({
         method: "delete",
-        url: "http://20.199.116.68:80/api/notes/delete/",
+        url: "http://localhost:8000/api/notes/delete/", // 20.199.116.68:80/api/notes/delete
         data: { user_id: this.userId, note_id: this.id },
-      }).then(() => {
-        this.$emit("noteDeleted");
-      }).catch((error) => {
-        console.log(error);
-      });
+      })
+        .then(() => {
+          this.$emit("noteDeleted");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

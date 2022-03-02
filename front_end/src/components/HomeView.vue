@@ -48,17 +48,19 @@
     <div v-if="notes == []">
       <p>No Posts to show.</p>
     </div>
+    <p>Back to login</p>
+    <router-link to="/login">Log out</router-link>
   </div>
 </template>
 
 <script>
-import Note from "./Note.vue";
+import Note from "./NoteView.vue";
 import { uuid } from "vue-uuid";
 import { language } from "@/lang/lang.js";
 
 import axios from "axios";
 export default {
-  name: "Home",
+  name: "HomeView",
 
   data() {
     return {
@@ -76,13 +78,15 @@ export default {
       console.log("reloading");
       await axios({
         method: "post",
-        url: "http://20.199.116.68:80/api/notes/",
+        url: "http://localhost:8000/api/notes/", // 20.199.116.68:80/api/notes/
         data: { user_id: this.userId },
-      }).then((response) => {
-	this.notes = response.data;
-      }).catch((error) => {
-        console.log(error);
-      });
+      })
+        .then((response) => {
+          this.notes = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     async createNote() {
@@ -90,19 +94,21 @@ export default {
       var content = document.getElementById("form-content").value;
       await axios({
         method: "post",
-        url: "http://20.199.116.68:80/api/notes/create/",
+        url: "http://localhost:8000/api/notes/create/", // 20.199.116.68:80/api/notes/create/
         data: {
           user_id: this.userId,
           note_title: title,
           note_content: content,
         },
-      }).then((response) => {
-        if (response.statusCode == 200) {
-          this.getNotes();
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
+      })
+        .then((response) => {
+          if (response.statusCode == 200) {
+            this.getNotes();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     createUUID() {

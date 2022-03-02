@@ -1,14 +1,24 @@
 version: "3.9"
 
 services:
+  db:
+    image: "postgres:11"
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "POSTGRES_NAME=postgres"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=notes"
   back:
-    build: ./back_end
-    command: python3 manage.py runserver localhost:8000
+    build: "./back_end"
+    command: "python3 manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
+    depends_on:
+      - "db"
   front:
-    build: ./front_end
-    command: npm run serve
+    build: "./front_end"
+    command: "npm run serve"
     ports:
       - "8080:8080"
     depends_on:

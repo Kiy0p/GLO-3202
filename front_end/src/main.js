@@ -1,9 +1,17 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import VueCookies from 'vue-cookies'
+import { createApp } from "vue"
+import App from "./App.vue"
+import VueCookies from "vue-cookies"
+import BootstrapVue3 from "bootstrap-vue-3"
+import router from "@/router/index.js"
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
 const app = createApp(App);
 
 app.component(VueCookies);
 
-app.mount('#app');
+app.use(router);
+app.use(BootstrapVue3);
+
+app.mount("#app");

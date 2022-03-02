@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import environ
 import os
+
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,8 +87,12 @@ WSGI_APPLICATION = 'back_end.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': env('DB_NAME'),
+       'USER': env('DB_USER'),
+       'PASSWORD': env('DB_PASSWORD'),
+       'HOST': env('DB_HOST'),
+       'PORT': env('DB_PORT'),
     }
 }
 
@@ -132,15 +139,11 @@ STATIC_URL = '/static/'
 # Personal
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8080",
-    "https://127.0.0.1:8080",
-    "http://127.0.0.1:3000",
-    "https://127.0.0.1:3000",
+    "http://localhost:8080",
     "http://20.199.116.68",
     "https://20.199.116.68",
-    "http://5.10.0.139",
-    "https://5.10.0.139",
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
