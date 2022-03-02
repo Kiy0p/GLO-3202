@@ -2,7 +2,7 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+**/__pycache__/
 db.sqlite3
 media
 
@@ -10,5 +10,27 @@ media
 *.bak 
 
 # Vue #
+.DS_Store
+node_modules
+/dist
 *.pdf
-nodes_modules
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
