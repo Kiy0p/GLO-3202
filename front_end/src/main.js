@@ -1,17 +1,29 @@
 import { createApp } from "vue"
+import { createStore } from 'vuex'
 import App from "./App.vue"
 import VueCookies from "vue-cookies"
-import BootstrapVue3 from "bootstrap-vue-3"
 import router from "@/router/index.js"
+import createPersistedState from "vuex-persistedstate";
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+
+export const store = createStore({
+    state: {
+        authenticated: false,
+        token: localStorage.getItem("notes_token")
+    },
+    mutations: {
+        setAuthentication(state, status) {
+            state.authenticated = status;
+        }
+    },
+    plugins: [createPersistedState()],
+});
 
 const app = createApp(App);
 
 app.component(VueCookies);
 
+app.use(store);
 app.use(router);
-app.use(BootstrapVue3);
 
 app.mount("#app");

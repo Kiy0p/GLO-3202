@@ -2,7 +2,7 @@
   <div>
     <h1>Login</h1>
     <div id="form-container">
-      <form method="post" action="" id="login-form">
+      <form id="login-form">
         <input
           class="input"
           type="text"
@@ -19,16 +19,18 @@
           class="input"
           type="button"
           value="Login"
-          v-on:click="submitLogin"
+          v-on:click="postSignIn"
         />
       </form>
     </div>
     <p>Don't have an account yet ?</p>
-    <router-link to="/register">Register</router-link>
+    <router-link to="/signup">Register</router-link>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "LoginView",
 
@@ -40,8 +42,22 @@ export default {
   },
 
   methods: {
-    submitLogin: function () {
-      this.$router.push("/");
+    async postSignIn() {
+      await axios({
+        method: "POST",
+        url: "http://localhost:8000/api/sign/in",
+        data: { username: this.username, password: this.password },
+      })
+        .then((response) => {
+          localStorage.setItem("notes_token", response.data["token"]);
+          this.$store.commit("setAuthentication", true);
+          this.$router.replace({ name: "home" });
+        })
+        .catch((error) => {
+          if (error.response.status == 401)
+            window.alert("Invalid username or password.");
+          else window.alert(error.response.data.error[0]);
+        });
     },
   },
 };

@@ -10,6 +10,7 @@ services:
       - "POSTGRES_PASSWORD=postgres"
       - "POSTGRES_DB=notes"
   back:
+    image: "back_end"
     build: "./back_end"
     command: "python3 manage.py runserver 0.0.0.0:8000"
     ports:
@@ -17,6 +18,7 @@ services:
     depends_on:
       - "db"
   front:
+    image: "front_end"
     build: "./front_end"
     command: "npm run serve"
     ports:

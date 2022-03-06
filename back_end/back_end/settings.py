@@ -43,8 +43,11 @@ INSTALLED_APPS = [
 
     # Personal
     'notes',
+    'account',
     
     # Third-party
+    'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 
@@ -147,3 +150,14 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+AUTH_USER_MODEL = 'account.Account' # Override default user model with our model
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

@@ -1,14 +1,16 @@
-from .models import Note 
-
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth import authenticate
 from rest_framework.response import Response
 
 from .models import Note
+from account.models import Account
 import json
 
 # Create your views here.
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def ApiOverview(request):
     data = {
         'api-overview/': 'GET all routes and methods',
@@ -19,31 +21,33 @@ def ApiOverview(request):
     return Response(data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def GetAllNotes(request):
-    bodyStr = request.body.decode('utf-8')
-    userId = json.loads(bodyStr).get('user_id')
+    user = request.user
 
-    queryset = list(Note.objects.filter(author=userId).values())
-    return Response(queryset)
+    queryset = list(Note.objects.filter(author=user).values())
+    return Response(queryset, status=200)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def DeleteNote(request):
     bodyStr = request.body.decode('utf-8')
-    userId = json.loads(bodyStr).get('user_id')
+    user = request.user
     noteId = json.loads(bodyStr).get('note_id')
 
-    Note.objects.filter(id=noteId, author=userId).delete()
-    return Response({'note': 'deleted'})
+    Note.objects.filter(id=noteId, author=user).delete()
+    return Response(data={'note': 'deleted'}, status=200)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def CreateNote(request): # TODO Body verification and data checking
     bodyStr = request.body.decode('utf-8')
-    userId = json.loads(bodyStr).get('user_id')
+    user = request.user
     noteTitle = json.loads(bodyStr).get('note_title')
     noteContent = json.loads(bodyStr).get('note_content')
     if noteTitle == "" and noteContent == "":
-        return Response({'note': 'not created'})
+        return Response(data={'note': 'not created'}, status=400)
 
-    Note.objects.create(title=noteTitle, content=noteContent, author=userId)
-    return Response({'note': 'created'})
+    Note.objects.create(title=noteTitle, content=noteContent, author=user)
+    return Response(data={'note': 'created'}, status=201)
 

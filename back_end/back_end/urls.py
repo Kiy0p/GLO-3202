@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from notes.views import ApiOverview, GetAllNotes, DeleteNote, CreateNote
+from account.views import SignIn, SignOut, SignUp
 
 
 urlpatterns = [
@@ -25,4 +26,8 @@ urlpatterns = [
     path('api/notes/', GetAllNotes),
     path('api/notes/delete/', DeleteNote),
     path('api/notes/create/', CreateNote),
+
+    path('api/sign/in', SignIn),
+    path('api/sign/out', SignOut),
+    path('api/sign/up', SignUp),
 ]

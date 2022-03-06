@@ -12,7 +12,7 @@
 import axios from "axios";
 export default {
   name: "NoteView",
-  props: ["title", "content", "id", "userId"],
+  props: ["title", "content", "id", "token"],
   data() {
     return {
       isActive: true,
@@ -23,13 +23,18 @@ export default {
       axios({
         method: "delete",
         url: "http://localhost:8000/api/notes/delete/", // 20.199.116.68:80/api/notes/delete
-        data: { user_id: this.userId, note_id: this.id },
+        headers: {
+          Authorization: `Token ${this.token}`,
+          "Content-Type": "application/json",
+        },
+        data: { note_id: this.id },
       })
         .then(() => {
           this.$emit("noteDeleted");
         })
         .catch((error) => {
           console.log(error);
+          window.alert(error);
         });
     },
   },

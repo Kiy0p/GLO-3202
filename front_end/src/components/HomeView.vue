@@ -15,10 +15,6 @@
       />
     </div>
     <h1 id="title"></h1>
-    <div id="title-container">
-      <h2 id="userId"></h2>
-      <h2>{{ userId }}</h2>
-    </div>
     <div id="form-container">
       <form id="form">
         <input id="form-title" type="text" autocomplete="off" />
@@ -27,7 +23,7 @@
           id="form-submit"
           type="submit"
           value="Create"
-          v-on:click="createNote"
+          v-on:click="createNote()"
         />
       </form>
       <hr size="4" width="90%" color="2c3e50" />
@@ -40,7 +36,7 @@
         :title="note.title"
         :content="note.content"
         :id="note.id"
-        :userId="userId"
+        :token="token"
         @noteDeleted="getNotes()"
       />
     </div>
@@ -49,13 +45,12 @@
       <p>No Posts to show.</p>
     </div>
     <p>Back to login</p>
-    <router-link to="/login">Log out</router-link>
+    <router-link to="/signin" v-on:click="logout()">Log out</router-link>
   </div>
 </template>
 
 <script>
 import Note from "./NoteView.vue";
-import { uuid } from "vue-uuid";
 import { language } from "@/lang/lang.js";
 
 import axios from "axios";
@@ -65,7 +60,7 @@ export default {
   data() {
     return {
       notes: [],
-      userId: null,
+      token: null,
     };
   },
 
@@ -75,11 +70,13 @@ export default {
 
   methods: {
     async getNotes() {
-      console.log("reloading");
       await axios({
         method: "post",
         url: "http://localhost:8000/api/notes/", // 20.199.116.68:80/api/notes/
-        data: { user_id: this.userId },
+        headers: {
+          Authorization: `Token ${this.token}`,
+          "Content-Type": "application/json",
+        },
       })
         .then((response) => {
           this.notes = response.data;
@@ -95,28 +92,28 @@ export default {
       await axios({
         method: "post",
         url: "http://localhost:8000/api/notes/create/", // 20.199.116.68:80/api/notes/create/
+        headers: {
+          Authorization: `Token ${this.token}`,
+          "Content-Type": "application/json",
+        },
         data: {
-          user_id: this.userId,
           note_title: title,
           note_content: content,
         },
       })
         .then((response) => {
-          if (response.statusCode == 200) {
+          if (response.status == 201) {
             this.getNotes();
+          } else {
+            window.alert(
+              "Note couldn't be created, status:" + response.statusText
+            );
           }
         })
         .catch((error) => {
           console.log(error);
+          window.alert(error);
         });
-    },
-
-    createUUID() {
-      if (localStorage.getItem("notes_user_id") == null) {
-        var userUUID = uuid.v1();
-        localStorage.setItem("notes_user_id", userUUID);
-      }
-      this.userId = localStorage.getItem("notes_user_id");
     },
 
     changeLanguage(language) {
@@ -129,13 +126,10 @@ export default {
       if (window.$cookies.get("lang")) {
         // if cookie is set
         var title = document.getElementById("title");
-        var userId = document.getElementById("userId");
         if (window.$cookies.get("lang") == "fr") {
           title.textContent = language.fr.title;
-          userId.textContent = language.fr.userId;
         } else if (window.$cookies.get("lang") == "en") {
           title.textContent = language.en.title;
-          userId.textContent = language.en.userId;
         } else {
           // if cookie doesn't match any language, sets it to default.
           window.$cookies.set("lang", "en", Infinity);
@@ -147,10 +141,14 @@ export default {
         this.loadLanguage();
       }
     },
+    logout() {
+      localStorage.removeItem("notes_token");
+      this.$store.commit("setAuthentication", false);
+    },
   },
 
   async mounted() {
-    this.createUUID();
+    this.token = localStorage.getItem("notes_token");
     await this.getNotes();
     this.loadLanguage();
   },

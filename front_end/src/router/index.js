@@ -1,15 +1,29 @@
 import Login from "@/components/LoginView.vue"
 import Home from "@/components/HomeView.vue"
 import Register from "@/components/RegisterView.vue"
+import NotFound from "@/components/NotFound.vue"
+import { store } from "@/main.js"
 import { createRouter, createWebHashHistory } from "vue-router"
 
 
 // Application routes
 
 const routes = [
-    { path: "/login", component: Login },
-    { path: "/register", component: Register },
-    { path: "/", component: Home },
+    { path: "/signin", name: "signin", component: Login },
+    { path: "/signup", name: "signup", component: Register },
+    {
+        path: "/",
+        name: "home",
+        component: Home,
+        beforeEnter: (to, from, next) => {
+            if (store.state.authenticated == false) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
+    { path: "/:pathMatch(.*)*", name: "notFound", component: NotFound },
 ]
 
 // Create router and feed routes
