@@ -2,7 +2,7 @@ import Login from "@/components/LoginView.vue"
 import Home from "@/components/HomeView.vue"
 import Register from "@/components/RegisterView.vue"
 import NotFound from "@/components/NotFound.vue"
-import { store } from "@/main.js"
+import store from "@/tools/store.js"
 import { createRouter, createWebHashHistory } from "vue-router"
 
 

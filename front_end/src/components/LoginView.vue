@@ -2,29 +2,39 @@
   <div>
     <h1>Login</h1>
     <div id="form-container">
-      <form id="login-form">
-        <input
+      <b-form id="login-form" @submit="postSignIn">
+        <b-form-input
+          id="input-username"
           class="input"
-          type="text"
           v-model="username"
-          placeholder="username"
-        />
-        <input
+          type="text"
+          placeholder="Enter username"
+          size="lg"
+          required
+          autofocus
+        ></b-form-input>
+        <b-form-input
+          id="input-password"
           class="input"
-          type="password"
           v-model="password"
-          placeholder="password"
-        />
-        <input
+          type="password"
+          placeholder="Enter password"
+          size="lg"
+          required
+        ></b-form-input>
+        <b-button
           class="input"
-          type="button"
-          value="Login"
-          v-on:click="postSignIn"
-        />
-      </form>
+          variant="outline-primary"
+          size="lg"
+          type="submit"
+          >Login
+        </b-button>
+      </b-form>
     </div>
-    <p>Don't have an account yet ?</p>
-    <router-link to="/signup">Register</router-link>
+    <div id="router-container">
+      <p>Don't have an account yet ?</p>
+      <router-link to="/signup">Register</router-link>
+    </div>
   </div>
 </template>
 
@@ -72,7 +82,12 @@ export default {
 #login-form {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 40%;
+}
+
+#router-container {
+  padding: 3em;
+  font-family: "RobotoRegular";
 }
 
 .input {

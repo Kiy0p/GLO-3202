@@ -1,23 +1,33 @@
 <template>
-  <div class="post-container" v-if="isActive">
-    <div class="post">
-      <div class="post-title">{{ title }}</div>
-      <div class="post-content">{{ content }}</div>
-    </div>
-    <button type="submit" class="delete-button" @click="deletePost">X</button>
-  </div>
+  <b-card class="post-container" bg-variant="light" :header="title">
+    <b-card-text class="post-content">
+      {{ content }}
+    </b-card-text>
+    <b-button
+      id="button-delete"
+      type="submit"
+      variant="outline-danger"
+      @click="deletePost"
+      >{{ buttonText }}
+    </b-button>
+  </b-card>
 </template>
 
 <script>
 import axios from "axios";
+import { language } from "@/lang/lang.js";
+
 export default {
   name: "NoteView",
+
   props: ["title", "content", "id", "token"],
+
   data() {
     return {
-      isActive: true,
+      buttonText: "",
     };
   },
+
   methods: {
     deletePost() {
       axios({
@@ -37,19 +47,38 @@ export default {
           window.alert(error);
         });
     },
+
+    loadLanguage() {
+      // if cookie is set
+      if (window.$cookies.get("lang") == "fr") {
+        this.buttonText = language.fr.noteButton;
+      } else if (window.$cookies.get("lang") == "en") {
+        this.buttonText = language.en.noteButton;
+      } else {
+        this.buttonText = language.en.noteButton;
+      }
+    },
+  },
+
+  mounted() {
+    this.loadLanguage();
   },
 };
 </script>
 
 <style scoped>
 .post-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
   width: 24%;
   margin-bottom: 18px;
   word-wrap: break-word;
+  font-family: "MonospaceBold";
+  font-size: 30px;
+  display: flex;
+}
+
+.post-items-container {
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .post {
@@ -59,23 +88,12 @@ export default {
   overflow: auto;
 }
 
-.post-title {
-  color: blue;
-  font-size: 30px;
-  font-weight: bold;
-}
-
 .post-content {
+  font-family: "MonospaceBold";
   font-size: 20px;
 }
 
-.delete-button {
-  align-self: right;
-  background-color: red;
-  font-size: 15px;
-  color: white;
-  height: 20px;
-  width: 20px;
-  flex: none;
+#button-delete {
+  font-family: "RobotoBold";
 }
 </style>

@@ -1,38 +1,40 @@
 <template>
   <div>
-    <div id="flag-container">
-      <input
-        type="image"
-        class="flag"
-        v-on:click="changeLanguage('fr')"
-        :src="require('@/assets/french_flag.png')"
-      />
-      <input
-        type="image"
-        class="flag"
-        v-on:click="changeLanguage('en')"
-        :src="require('@/assets/english_flag.png')"
-      />
-    </div>
     <h1 id="title"></h1>
     <div id="form-container">
-      <form id="form">
-        <input id="form-title" type="text" autocomplete="off" />
-        <textarea id="form-content"></textarea>
-        <input
-          id="form-submit"
+      <b-form id="form" @submit="createNote()">
+        <b-form-input
+          id="noteTitleInput"
+          class="form-input"
+          v-model="noteTitle"
+          placeholder="Title"
+          size="lg"
+        >
+        </b-form-input>
+        <b-form-textarea
+          id="noteContentInput"
+          class="form-input"
+          v-model="noteContent"
+          placeholder="Content"
+          size="lg"
+          rows="3"
+          no-resize
+        >
+        </b-form-textarea>
+        <b-button
+          id="form-button-create"
+          class="form-input"
+          variant="outline-primary"
           type="submit"
-          value="Create"
-          v-on:click="createNote()"
-        />
-      </form>
+          size="lg"
+        ></b-button>
+      </b-form>
       <hr size="4" width="90%" color="2c3e50" />
     </div>
     <div class="notes-container">
       <Note
         v-for="(note, index) in notes"
         :key="index"
-        :v-if="notes == []"
         :title="note.title"
         :content="note.content"
         :id="note.id"
@@ -44,8 +46,10 @@
     <div v-if="notes == []">
       <p>No Posts to show.</p>
     </div>
-    <p>Back to login</p>
-    <router-link to="/signin" v-on:click="logout()">Log out</router-link>
+    <div id="router-container">
+      <p>Back to login</p>
+      <router-link to="/signin" v-on:click="logout()">Log out</router-link>
+    </div>
   </div>
 </template>
 
@@ -61,6 +65,8 @@ export default {
     return {
       notes: [],
       token: null,
+      noteTitle: "",
+      noteContent: "",
     };
   },
 
@@ -87,8 +93,7 @@ export default {
     },
 
     async createNote() {
-      var title = document.getElementById("form-title").value;
-      var content = document.getElementById("form-content").value;
+      if (!this.checkForm()) return;
       await axios({
         method: "post",
         url: "http://localhost:8000/api/notes/create/", // 20.199.116.68:80/api/notes/create/
@@ -97,13 +102,14 @@ export default {
           "Content-Type": "application/json",
         },
         data: {
-          note_title: title,
-          note_content: content,
+          note_title: this.noteTitle,
+          note_content: this.noteContent,
         },
       })
         .then((response) => {
           if (response.status == 201) {
             this.getNotes();
+            this.clearInputs();
           } else {
             window.alert(
               "Note couldn't be created, status:" + response.statusText
@@ -116,20 +122,34 @@ export default {
         });
     },
 
-    changeLanguage(language) {
-      window.$cookies.set("lang", language, Infinity);
-      location.reload();
+    checkForm() {
+      if (this.noteTitle === "" || this.noteContent === "") return false;
+      return true;
+    },
+
+    clearInputs() {
+      this.noteTitle = "";
+      this.noteContent = "";
     },
 
     loadLanguage() {
       // loads the language with the cookie lang
       if (window.$cookies.get("lang")) {
         // if cookie is set
-        var title = document.getElementById("title");
+        const title = document.getElementById("title");
+        const button = document.getElementById("form-button-create");
+        const inputTitle = document.getElementById("noteTitleInput");
+        const inputContent = document.getElementById("noteContentInput");
         if (window.$cookies.get("lang") == "fr") {
           title.textContent = language.fr.title;
+          button.textContent = language.fr.formButton;
+          inputTitle.setAttribute("placeholder", language.fr.formTitle);
+          inputContent.setAttribute("placeholder", language.fr.formContent);
         } else if (window.$cookies.get("lang") == "en") {
           title.textContent = language.en.title;
+          button.textContent = language.en.formButton;
+          inputTitle.setAttribute("placeholder", language.en.formTitle);
+          inputContent.setAttribute("placeholder", language.en.formContent);
         } else {
           // if cookie doesn't match any language, sets it to default.
           window.$cookies.set("lang", "en", Infinity);
@@ -156,20 +176,6 @@ export default {
 </script>
 
 <style scoped>
-#flag-container {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.flag {
-  width: 60px;
-  height: 40px;
-  margin-right: 20px;
-}
-
 .notes-container {
   display: flex;
   flex-direction: row;
@@ -177,15 +183,21 @@ export default {
   justify-content: space-evenly;
 }
 
+.form-input {
+  margin-top: 1em;
+}
+
 #title {
   font-size: 8em;
+  font-family: "RobotoRegular", Helvetica, Arial;
 }
 
 #form {
   display: flex;
   flex-direction: column;
-  width: 24%;
+  width: 30%;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 #form-container {
@@ -195,21 +207,21 @@ export default {
   margin-bottom: 40px;
 }
 
-#form-title {
-  color: blue;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
+#form-button-create {
+  font-family: "RobotoBold";
+  width: 5em;
 }
 
-#form-content {
-  font-size: 20px;
-  margin-bottom: 20px;
+#noteTitleInput {
+  font-family: "MonospaceBold";
 }
 
-#form-submit {
-  font-size: 20px;
-  width: 100px;
-  align-self: center;
+#noteContentInput {
+  font-family: "MonospaceBold";
+}
+
+#router-container {
+  padding: 3em;
+  font-family: "RobotoRegular";
 }
 </style>
