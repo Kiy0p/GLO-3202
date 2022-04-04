@@ -67,33 +67,5 @@ export default {
 </script>
 
 <style scoped>
-.post-container {
-  width: 24%;
-  margin-bottom: 18px;
-  word-wrap: break-word;
-  font-family: "MonospaceBold";
-  font-size: 30px;
-  display: flex;
-}
-
-.post-items-container {
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.post {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  overflow: auto;
-}
-
-.post-content {
-  font-family: "MonospaceBold";
-  font-size: 20px;
-}
-
-#button-delete {
-  font-family: "RobotoBold";
-}
+@import "@/styles/note.css";
 </style>

@@ -33,24 +33,5 @@ export default {
 
 
 <style scoped>
-.flag {
-  width: 60px;
-  height: 40px;
-  margin-right: 20px;
-}
-
-#flag-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-#site-title {
-  font-family: "RobotoBold";
-  align-self: center;
-  font-size: 3em;
-}
+@import "@/styles/header.css";
 </style>

@@ -1,34 +1,41 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1 id="login-title">Login</h1>
     <div id="form-container">
       <b-form id="login-form" @submit="postSignIn">
-        <b-form-input
-          id="input-username"
-          class="input"
-          v-model="username"
-          type="text"
-          placeholder="Enter username"
-          size="lg"
-          required
-          autofocus
-        ></b-form-input>
-        <b-form-input
-          id="input-password"
-          class="input"
-          v-model="password"
-          type="password"
-          placeholder="Enter password"
-          size="lg"
-          required
-        ></b-form-input>
-        <b-button
-          class="input"
-          variant="outline-primary"
-          size="lg"
-          type="submit"
-          >Login
-        </b-button>
+        <b-form-group class="form-group">
+          <b-form-input
+            id="input-username"
+            class="input"
+            v-model="username"
+            type="text"
+            placeholder="Enter username"
+            size="lg"
+            required
+            autofocus
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group class="form-group">
+          <b-form-input
+            id="input-password"
+            class="input"
+            v-model="password"
+            type="password"
+            placeholder="Enter password"
+            size="lg"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group class="form-group">
+          <b-button
+            id="login-button"
+            class="input"
+            variant="outline-primary"
+            size="lg"
+            type="submit"
+            >Login
+          </b-button>
+        </b-form-group>
       </b-form>
     </div>
     <div id="router-container">
@@ -74,23 +81,6 @@ export default {
 </script>
 
 <style scoped>
-#form-container {
-  display: flex;
-  justify-content: center;
-}
-
-#login-form {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-}
-
-#router-container {
-  padding: 3em;
-  font-family: "RobotoRegular";
-}
-
-.input {
-  margin-top: 1em;
-}
+@import "@/styles/signin.css";
+@import "@/styles/commonSign.css";
 </style>

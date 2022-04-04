@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Register</h1>
+    <h1 id="register-title">Register</h1>
     <div id="form-container">
       <b-form id="register-form" @submit="postSignUp">
-        <b-form-group>
+        <b-form-group class="form-group">
           <b-form-input
             id="input-email"
             class="input"
@@ -19,7 +19,7 @@
             Enter a valid email.
           </b-form-invalid-feedback>
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="form-group">
           <b-form-input
             id="input-username"
             class="input"
@@ -34,7 +34,7 @@
             Username sould at least be 5 characters long.
           </b-form-invalid-feedback>
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="form-group">
           <b-form-input
             id="input-pass1"
             class="input"
@@ -50,13 +50,13 @@
             and numbers.
           </b-form-invalid-feedback>
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="form-group">
           <b-form-input
             id="input-pass2"
             class="input"
             v-model="pass2"
             type="password"
-            placeholder="Reprat password"
+            placeholder="password (yes, again)"
             size="lg"
             required
             :state="passwordsMatch"
@@ -100,10 +100,6 @@ export default {
   },
   methods: {
     async postSignUp() {
-      if (this.isFormValid() !== "") {
-        window.alert(this.isFormValid());
-        return;
-      }
       await axios({
         method: "POST",
         url: "http://localhost:8000/api/sign/up",
@@ -127,11 +123,7 @@ export default {
   computed: {
     emailCorrect() {
       if (this.email === "") return null;
-      if (
-        !this.email.match(
-          /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        )
-      )
+      if (!this.email.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))
         return false;
       return true;
     },
@@ -159,24 +151,6 @@ export default {
 </script>
 
 <style scoped>
-#form-container {
-  display: flex;
-  justify-content: center;
-}
-
-#register-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-}
-
-#router-container {
-  padding: 3em;
-  font-family: "RobotoRegular";
-}
-
-.input {
-  margin-top: 1em;
-}
+@import "@/styles/signup.css";
+@import "@/styles/commonSign.css";
 </style>

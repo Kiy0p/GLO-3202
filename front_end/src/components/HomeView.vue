@@ -176,52 +176,5 @@ export default {
 </script>
 
 <style scoped>
-.notes-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.form-input {
-  margin-top: 1em;
-}
-
-#title {
-  font-size: 8em;
-  font-family: "RobotoRegular", Helvetica, Arial;
-}
-
-#form {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  margin-bottom: 20px;
-  align-items: center;
-}
-
-#form-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 40px;
-}
-
-#form-button-create {
-  font-family: "RobotoBold";
-  width: 5em;
-}
-
-#noteTitleInput {
-  font-family: "MonospaceBold";
-}
-
-#noteContentInput {
-  font-family: "MonospaceBold";
-}
-
-#router-container {
-  padding: 3em;
-  font-family: "RobotoRegular";
-}
+@import "@/styles/home.css";
 </style>

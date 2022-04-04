@@ -1,0 +1,27 @@
+#form-container {
+    display: flex;
+    justify-content: center;
+}
+
+#register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "RobotoRegular";
+    align-items: center;
+    width: 40%;
+}
+
+#router-container {
+    padding: 3em;
+    font-family: "RobotoRegular";
+}
+
+#register-title {
+    font-family: "RobotoRegular";
+    font-size: 5em;
+}
+
+.form-group {
+    width: 100%;
+}
