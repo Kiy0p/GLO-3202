@@ -8,14 +8,13 @@
       type="submit"
       variant="outline-danger"
       @click="deletePost"
-      >{{ buttonText }}
+      >{{ $t("note.deleteButton", language) }}
     </b-button>
   </b-card>
 </template>
 
 <script>
 import axios from "axios";
-import { language } from "@/lang/lang.js";
 
 export default {
   name: "NoteView",
@@ -25,6 +24,7 @@ export default {
   data() {
     return {
       buttonText: "",
+      language: "en",
     };
   },
 
@@ -47,21 +47,10 @@ export default {
           window.alert(error);
         });
     },
-
-    loadLanguage() {
-      // if cookie is set
-      if (window.$cookies.get("lang") == "fr") {
-        this.buttonText = language.fr.noteButton;
-      } else if (window.$cookies.get("lang") == "en") {
-        this.buttonText = language.en.noteButton;
-      } else {
-        this.buttonText = language.en.noteButton;
-      }
-    },
   },
 
   mounted() {
-    this.loadLanguage();
+    this.language = window.$cookies.get("lang");
   },
 };
 </script>

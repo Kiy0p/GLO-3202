@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1 id="login-title">Login</h1>
+    <Alert
+      variant="danger"
+      content="Invalid username or password."
+      ref="alertComponent"
+    />
+    <h1 id="login-title">{{ $t("login.title", language) }}</h1>
     <div id="form-container">
       <b-form id="login-form" @submit="postSignIn">
         <b-form-group class="form-group">
@@ -9,7 +14,7 @@
             class="input"
             v-model="username"
             type="text"
-            placeholder="Enter username"
+            :placeholder="$t('login.formUsername', language)"
             size="lg"
             required
             autofocus
@@ -21,7 +26,7 @@
             class="input"
             v-model="password"
             type="password"
-            placeholder="Enter password"
+            :placeholder="$t('login.formPassword', language)"
             size="lg"
             required
           ></b-form-input>
@@ -33,28 +38,34 @@
             variant="outline-primary"
             size="lg"
             type="submit"
-            >Login
+            >{{ $t("login.formButton", language) }}
           </b-button>
         </b-form-group>
       </b-form>
     </div>
     <div id="router-container">
-      <p>Don't have an account yet ?</p>
-      <router-link to="/signup">Register</router-link>
+      <p>{{ $t("login.formFooter", language) }}</p>
+      <router-link to="/signup">{{ $t("login.formRegister", language) }}</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Alert from "./Alert";
 
 export default {
   name: "LoginView",
+
+  components: {
+    Alert,
+  },
 
   data() {
     return {
       username: "",
       password: "",
+      language: "en",
     };
   },
 
@@ -62,20 +73,24 @@ export default {
     async postSignIn() {
       await axios({
         method: "POST",
-        url: "http://localhost:8000/api/sign/in",
+        url: process.env.VUE_APP_ROOT_API + "/api/sign/in",
         data: { username: this.username, password: this.password },
       })
-        .then((response) => {
-          localStorage.setItem("notes_token", response.data["token"]);
-          this.$store.commit("setAuthentication", true);
-          this.$router.replace({ name: "home" });
-        })
-        .catch((error) => {
-          if (error.response.status == 401)
-            window.alert("Invalid username or password.");
-          else window.alert(error.response.data.error[0]);
-        });
+      .then((response) => {
+        window.$cookies.set("notes_token", response.data["token"]);
+        this.$store.commit("setAuthentication", true);
+        this.$router.replace({ name: "home" });
+      })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          this.$refs.alertComponent.showAlert();
+        }
+        else window.alert(error.response.data.error[0]);
+      });
     },
+  },
+  mounted() {
+    this.language = window.$cookies.get("lang");
   },
 };
 </script>

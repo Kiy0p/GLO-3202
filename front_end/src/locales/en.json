@@ -1,0 +1,32 @@
+{
+  "home": {
+    "title": "Your notes",
+    "formButton": "Create",
+    "formTitle": "Title",
+    "formContent": "Content",
+    "formFooter": "Back to login",
+    "formLogout": "Log out",
+    "noteButton": "Delete"
+  },
+  "note": {
+    "deleteButton": "Delete"
+  },
+  "login": {
+    "title": "Login",
+    "formUsername": "Enter username",
+    "formPassword": "Enter password",
+    "formButton": "Login",
+    "formFooter": "Don't have an account yet ?",
+    "formRegister": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "formEmail": "Enter email",
+    "formUsername": "Enter username",
+    "formpassword1": "Enter password",
+    "formpassword2": "Enter password (yes, again)",
+    "formButton": "Register",
+    "formFooter": "Back to login",
+    "formLogin": "Login"
+  }
+}

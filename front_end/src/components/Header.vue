@@ -25,7 +25,6 @@ export default {
     changeLanguage(language) {
       window.$cookies.set("lang", language, Infinity);
       location.reload();
-      console.log("reloading");
     },
   },
 };

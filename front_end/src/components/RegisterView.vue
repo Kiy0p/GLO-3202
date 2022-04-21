@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="register-title">Register</h1>
+    <h1 id="register-title">{{ $t("register.title", language) }}</h1>
     <div id="form-container">
       <b-form id="register-form" @submit="postSignUp">
         <b-form-group class="form-group">
@@ -9,7 +9,7 @@
             class="input"
             v-model="email"
             type="email"
-            placeholder="Enter email"
+            :placeholder="$t('register.formEmail', language)"
             size="lg"
             required
             autofocus
@@ -25,7 +25,7 @@
             class="input"
             v-model="username"
             type="text"
-            placeholder="Enter username"
+            :placeholder="$t('register.formUsername', language)"
             size="lg"
             required
             :state="usernameLength"
@@ -40,7 +40,7 @@
             class="input"
             v-model="pass1"
             type="password"
-            placeholder="Enter password"
+            :placeholder="$t('register.formpassword1', language)"
             size="lg"
             required
             :state="passwordRequirements"
@@ -56,7 +56,7 @@
             class="input"
             v-model="pass2"
             type="password"
-            placeholder="password (yes, again)"
+            :placeholder="$t('register.formpassword2', language)"
             size="lg"
             required
             :state="passwordsMatch"
@@ -70,13 +70,13 @@
           variant="outline-primary"
           size="lg"
           type="submit"
-          >Register
+          >{{ $t("register.formButton", language) }}
         </b-button>
       </b-form>
     </div>
     <div id="router-container">
-      <p>Back to login</p>
-      <router-link to="/signin">Login</router-link>
+      <p>{{ $t("register.formFooter", language) }}</p>
+      <router-link to="/signin">{{ $t("register.formLogin", language) }}</router-link>
     </div>
   </div>
 </template>
@@ -96,13 +96,14 @@ export default {
       usernameContext: null,
       pass1Context: null,
       pass2Context: null,
+      language: "en",
     };
   },
   methods: {
     async postSignUp() {
       await axios({
         method: "POST",
-        url: "http://localhost:8000/api/sign/up",
+        url: process.env.VUE_APP_ROOT_API + "/api/sign/up",
         data: {
           username: this.username,
           email: this.email,
@@ -146,6 +147,9 @@ export default {
       if (this.pass1 !== this.pass2) return false;
       return true;
     },
+  },
+  mounted() {
+    this.language = window.$cookies.get("lang");
   },
 };
 </script>

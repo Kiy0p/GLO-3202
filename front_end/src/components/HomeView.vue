@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1 id="title"></h1>
+    <h1 id="title">{{ $t("home.title", language) }}</h1>
     <div id="form-container">
       <b-form id="form" @submit="createNote()">
         <b-form-input
           id="noteTitleInput"
           class="form-input"
           v-model="noteTitle"
-          placeholder="Title"
+          :placeholder="$t('home.formTitle', language)"
           size="lg"
         >
         </b-form-input>
@@ -15,7 +15,7 @@
           id="noteContentInput"
           class="form-input"
           v-model="noteContent"
-          placeholder="Content"
+          :placeholder="$t('home.formContent', language)"
           size="lg"
           rows="3"
           no-resize
@@ -27,7 +27,7 @@
           variant="outline-primary"
           type="submit"
           size="lg"
-        ></b-button>
+        >{{ $t("home.formButton", language) }}</b-button>
       </b-form>
       <hr size="4" width="90%" color="2c3e50" />
     </div>
@@ -47,15 +47,14 @@
       <p>No Posts to show.</p>
     </div>
     <div id="router-container">
-      <p>Back to login</p>
-      <router-link to="/signin" v-on:click="logout()">Log out</router-link>
+      <p>{{ $t("home.formFooter", language) }}</p>
+      <router-link to="/signin" v-on:click="logout()">{{ $t("home.formLogout", language) }}</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import Note from "./NoteView.vue";
-import { language } from "@/lang/lang.js";
 
 import axios from "axios";
 export default {
@@ -67,6 +66,7 @@ export default {
       token: null,
       noteTitle: "",
       noteContent: "",
+      language: "en",
     };
   },
 
@@ -78,25 +78,24 @@ export default {
     async getNotes() {
       await axios({
         method: "post",
-        url: "http://localhost:8000/api/notes/", // 20.199.116.68:80/api/notes/
+        url: process.env.VUE_APP_ROOT_API + "/api/notes/", // 20.199.116.68:80/api/notes/
         headers: {
           Authorization: `Token ${this.token}`,
           "Content-Type": "application/json",
         },
       })
-        .then((response) => {
-          this.notes = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .then((response) => {
+        this.notes = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
 
     async createNote() {
-      if (!this.checkForm()) return;
       await axios({
         method: "post",
-        url: "http://localhost:8000/api/notes/create/", // 20.199.116.68:80/api/notes/create/
+        url: process.env.VUE_APP_ROOT_API + "/api/notes/create/", // 20.199.116.68:80/api/notes/create/
         headers: {
           Authorization: `Token ${this.token}`,
           "Content-Type": "application/json",
@@ -121,56 +120,20 @@ export default {
           window.alert(error);
         });
     },
-
-    checkForm() {
-      if (this.noteTitle === "" || this.noteContent === "") return false;
-      return true;
-    },
-
     clearInputs() {
       this.noteTitle = "";
       this.noteContent = "";
     },
-
-    loadLanguage() {
-      // loads the language with the cookie lang
-      if (window.$cookies.get("lang")) {
-        // if cookie is set
-        const title = document.getElementById("title");
-        const button = document.getElementById("form-button-create");
-        const inputTitle = document.getElementById("noteTitleInput");
-        const inputContent = document.getElementById("noteContentInput");
-        if (window.$cookies.get("lang") == "fr") {
-          title.textContent = language.fr.title;
-          button.textContent = language.fr.formButton;
-          inputTitle.setAttribute("placeholder", language.fr.formTitle);
-          inputContent.setAttribute("placeholder", language.fr.formContent);
-        } else if (window.$cookies.get("lang") == "en") {
-          title.textContent = language.en.title;
-          button.textContent = language.en.formButton;
-          inputTitle.setAttribute("placeholder", language.en.formTitle);
-          inputContent.setAttribute("placeholder", language.en.formContent);
-        } else {
-          // if cookie doesn't match any language, sets it to default.
-          window.$cookies.set("lang", "en", Infinity);
-          this.loadLanguage();
-        }
-      } else {
-        // if cookie is not set, sets it and reloads the page
-        window.$cookies.set("lang", "en", Infinity);
-        this.loadLanguage();
-      }
-    },
     logout() {
-      localStorage.removeItem("notes_token");
+      window.$cookies.remove("notes_token");
       this.$store.commit("setAuthentication", false);
     },
   },
 
   async mounted() {
-    this.token = localStorage.getItem("notes_token");
+    this.token = window.$cookies.get("notes_token");
+    this.language = window.$cookies.get("lang");
     await this.getNotes();
-    this.loadLanguage();
   },
 };
 </script>

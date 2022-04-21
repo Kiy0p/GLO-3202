@@ -4,7 +4,7 @@ import { createStore } from "vuex"
 const store = createStore({
     state: {
         authenticated: false,
-        token: localStorage.getItem("notes_token")
+        token: window.$cookies.get("notes_token")
     },
     mutations: {
         setAuthentication(state, status) {

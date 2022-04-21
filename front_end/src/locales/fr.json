@@ -1,0 +1,32 @@
+{
+  "home": {
+    "title": "Vos notes",
+    "formButton": "Créer",
+    "formTitle": "Titre",
+    "formContent": "Contenu",
+    "formFooter": "Retour au login",
+    "formLogout": "Deconnexion",
+    "noteButton": "Supprimer"
+  },
+  "note": {
+    "deleteButton": "Supprimer"
+  },
+  "login": {
+    "title": "Connexion",
+    "formUsername": "Nom d'utilisateur",
+    "formPassword": "Mot de passe",
+    "formButton": "Connexion",
+    "formFooter": "Vous n'avez pas de compte ?",
+    "formRegister": "M'enregistrer"
+  },
+  "register": {
+    "title": "S'enregistrer",
+    "formEmail": "Entrer email",
+    "formUsername": "Entrer nom d'utilisateur",
+    "formpassword1": "Entrer mot de passe",
+    "formpassword2": "Entrer mot de passe (oui, encore)",
+    "formButton": "S'enregistrer",
+    "formFooter": "Retour à la connexion",
+    "formLogin": "Connexion"
+  }
+}
