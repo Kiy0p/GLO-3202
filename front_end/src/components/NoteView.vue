@@ -42,9 +42,8 @@ export default {
         .then(() => {
           this.$emit("noteDeleted");
         })
-        .catch((error) => {
-          console.log(error);
-          window.alert(error);
+        .catch(() => {
+          this.$router.replace({ name: "signin" });
         });
     },
   },

@@ -3,7 +3,6 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import VueCookies from "vue-cookies"
 import router from "@/tools/index.js"
-import store from "@/tools/store.js"
 import BootstrapVue3 from "bootstrap-vue-3"
 import i18n from './i18n'
 
@@ -19,7 +18,6 @@ router.beforeEach((to, from, next) => {
 
 app.component(VueCookies);
 
-app.use(store);
 app.use(router);
 app.use(BootstrapVue3);
 app.use(i18n);

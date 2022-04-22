@@ -42,7 +42,6 @@
         @noteDeleted="getNotes()"
       />
     </div>
-
     <div v-if="notes == []">
       <p>No Posts to show.</p>
     </div>
@@ -85,10 +84,14 @@ export default {
         },
       })
       .then((response) => {
-        this.notes = response.data;
+        if (response.status == 200) {
+          this.notes = response.data;
+        } else {
+          this.$router.replace({ name: "signin" });
+        }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        this.$router.replace({ name: "signin" });
       });
     },
 
@@ -115,9 +118,8 @@ export default {
             );
           }
         })
-        .catch((error) => {
-          console.log(error);
-          window.alert(error);
+        .catch(() => {
+          this.$router.replace({ name: "signin" });
         });
     },
     clearInputs() {

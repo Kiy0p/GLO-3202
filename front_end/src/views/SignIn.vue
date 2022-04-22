@@ -78,7 +78,6 @@ export default {
       })
       .then((response) => {
         window.$cookies.set("notes_token", response.data["token"]);
-        this.$store.commit("setAuthentication", true);
         this.$router.replace({ name: "home" });
       })
       .catch((error) => {
