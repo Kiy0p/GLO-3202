@@ -5,9 +5,9 @@
       content="Invalid username or password."
       ref="alertComponent"
     />
-    <h1 id="login-title">{{ $t("login.title", language) }}</h1>
+    <h1 id="form-title">{{ $t("login.title", language) }}</h1>
     <div id="form-container">
-      <b-form id="login-form" @submit="postSignIn">
+      <b-form id="login-form" class="w-75" @submit="postSignIn">
         <b-form-group class="form-group">
           <b-form-input
             id="input-username"

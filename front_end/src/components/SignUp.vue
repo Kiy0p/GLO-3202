@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 id="register-title">{{ $t("register.title", language) }}</h1>
+    <h1 id="form-title">{{ $t("register.title", language) }}</h1>
     <div id="form-container">
-      <b-form id="register-form" @submit="postSignUp">
+      <b-form id="register-form" class="w-75" @submit="postSignUp">
         <b-form-group class="form-group">
           <b-form-input
             id="input-email"

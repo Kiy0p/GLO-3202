@@ -8,9 +8,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 20px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 20px;
 }
 
 #site-title {
@@ -18,3 +16,72 @@
     align-self: center;
     font-size: 3em;
 }
+
+@media screen and (max-width: 1400px) {
+    .flag {
+        width: 100px;
+        height: 66px;
+    }
+    
+    #flag-container {
+        margin: 20px;
+    }
+    
+    #site-title {
+        font-size: 4em;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .flag {
+        width: 70px;
+        height: 46px;
+    }
+    
+    #flag-container {
+        margin: 13px;
+    }
+    
+    #site-title {
+        font-size: 3em;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .flag {
+        width: 60px;
+        height: 40px;
+    }
+    
+    #flag-container {
+        margin: 10px;
+    }
+    
+    #site-title {
+        font-size: 2.5em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .flag {
+        width: 40px;
+        height: 27px;
+    }
+    
+    #site-title {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #flag-container {
+        margin-top: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    
+    #site-title {
+        font-size: 1.7em;
+    }
+}
+

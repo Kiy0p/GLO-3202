@@ -1,9 +1,9 @@
 .post-container {
-    width: 24%;
+    width: 32%;
     margin-bottom: 18px;
     word-wrap: break-word;
     font-family: "MonospaceBold";
-    font-size: 30px;
+    font-size: 40px;
     display: flex;
 }
 
@@ -21,9 +21,69 @@
 
 .post-content {
     font-family: "MonospaceBold";
-    font-size: 20px;
+    font-size: 25px;
 }
 
 #button-delete {
     font-family: "RobotoBold";
 }
+
+@media screen and (max-width: 900px) {
+    .post-container {
+        width: 32%;
+        margin-bottom: 18px;
+        font-size: 30px;
+    }
+
+    .post-content {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .post-container {
+        width: 48%;
+        margin-bottom: 18px;
+        font-size: 30px;
+    }
+
+    .post-content {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .post-container {
+        width: 90%;
+        margin-bottom: 18px;
+        font-size: 25px;
+    }
+
+    .post-content {
+        font-size: 20px;
+    }
+}
+/*
+@media screen and (max-width: 400px) {
+    .post-container {
+        width: 90%;
+        margin-bottom: 18px;
+        font-size: 25px;
+    }
+
+    .post-content {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .post-container {
+        width: 90%;
+        margin-bottom: 18px;
+        font-size: 25px;
+    }
+
+    .post-content {
+        font-size: 20px;
+    }
+}*/

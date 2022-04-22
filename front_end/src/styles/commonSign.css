@@ -5,3 +5,38 @@
 .form-group {
     width: 100%;
 }
+
+#form-title {
+    font-family: "RobotoRegular";
+    font-size: 5em;
+}
+
+@media screen and (max-width: 900px) {
+    #form-title {
+        font-size: 6em;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #form-title {
+        font-size: 5em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #form-title {
+        font-size: 4em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #form-title {
+        font-size: 3em;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #form-title {
+        font-size: 2.5em;
+    }
+}

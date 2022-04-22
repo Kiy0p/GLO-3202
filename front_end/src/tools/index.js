@@ -1,6 +1,6 @@
-import Login from "@/components/LoginView.vue"
+import SignIn from "@/components/SignIn.vue"
+import SignUp from "@/components/SignUp.vue"
 import Home from "@/components/HomeView.vue"
-import Register from "@/components/RegisterView.vue"
 import NotFound from "@/components/NotFound.vue"
 import store from "@/tools/store.js"
 import { createRouter, createWebHashHistory } from "vue-router"
@@ -9,8 +9,8 @@ import { createRouter, createWebHashHistory } from "vue-router"
 // Application routes
 
 const routes = [
-    { path: "/signin", name: "signin", component: Login },
-    { path: "/signup", name: "signup", component: Register },
+    { path: "/signin", name: "signin", component: SignIn },
+    { path: "/signup", name: "signup", component: SignUp },
     {
         path: "/",
         name: "home",
