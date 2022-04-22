@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Note from "./NoteView.vue";
+import Note from "@/components/NoteView.vue";
 
 import axios from "axios";
 export default {

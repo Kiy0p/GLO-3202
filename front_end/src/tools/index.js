@@ -1,7 +1,7 @@
-import SignIn from "@/components/SignIn.vue"
-import SignUp from "@/components/SignUp.vue"
-import Home from "@/components/HomeView.vue"
-import NotFound from "@/components/NotFound.vue"
+import SignIn from "@/views/SignIn.vue"
+import SignUp from "@/views/SignUp.vue"
+import Home from "@/views/HomeView.vue"
+import NotFound from "@/views/NotFound.vue"
 import store from "@/tools/store.js"
 import { createRouter, createWebHashHistory } from "vue-router"
 
