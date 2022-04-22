@@ -2,7 +2,6 @@
   <div>
     <Alert
       variant="danger"
-      content="Invalid username or password."
       ref="alertComponent"
     />
     <h1 id="form-title">{{ $t("login.title", language) }}</h1>
@@ -82,9 +81,8 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 401) {
-          this.$refs.alertComponent.showAlert();
+          this.$refs.alertComponent.showAlert("Invalid username or password.");
         }
-        else window.alert(error.response.data.error[0]);
       });
     },
   },
@@ -95,6 +93,6 @@ export default {
 </script>
 
 <style scoped>
-@import "@/styles/signin.css";
-@import "@/styles/commonSign.css";
+@import "@/styles/views/signin.css";
+@import "@/styles/views/commonSign.css";
 </style>

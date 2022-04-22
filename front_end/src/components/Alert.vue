@@ -8,17 +8,19 @@
 export default {
   name: "AlertView",
 
-  props: ["variant", "content"],
+  props: ["variant"],
 
   data() {
     return {
       isActive: false,
+      content: "Something went wrong, try again later"
     }
   },
 
   methods: {
-    showAlert() {
+    showAlert(value) {
       this.isActive = true;
+      this.content = value;
       setTimeout(() => { this.isActive = false }, 3000);
     },
   }
@@ -27,9 +29,5 @@ export default {
 </script>
 
 <style scoped>
-#alert-container {
-  display: flex;
-  position: absolute;
-  margin-top: -85px;
-}
+@import "@/styles/components/alert.css";
 </style>

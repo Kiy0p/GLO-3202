@@ -27,6 +27,12 @@
     "formpassword2": "Enter password (yes, again)",
     "formButton": "Register",
     "formFooter": "Back to login",
-    "formLogin": "Login"
+    "formLogin": "Login",
+    "feedBack": {
+      "email": "Enter a valid email.",
+      "username": "Username sould at least be 5 characters long.",
+      "password1": "Password should at least contain 8 characters, uppercase, lowercase and numbers.",
+      "password2": "Passwords don't match."
+    }
   }
 }

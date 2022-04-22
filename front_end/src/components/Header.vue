@@ -32,5 +32,5 @@ export default {
 
 
 <style scoped>
-@import "@/styles/header.css";
+@import "@/styles/components/header.css";
 </style>

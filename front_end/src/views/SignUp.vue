@@ -1,5 +1,10 @@
 <template>
   <div>
+    <Alert
+      variant="danger"
+      content="Invalid username or password."
+      ref="alertComponent"
+    />
     <h1 id="form-title">{{ $t("register.title", language) }}</h1>
     <div id="form-container">
       <b-form id="register-form" class="w-75" @submit="postSignUp">
@@ -16,7 +21,7 @@
             :state="emailCorrect"
           ></b-form-input>
           <b-form-invalid-feedback :state="emailCorrect">
-            Enter a valid email.
+            {{ $t("register.feedBack.email", language) }}
           </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group class="form-group">
@@ -31,7 +36,7 @@
             :state="usernameLength"
           ></b-form-input>
           <b-form-invalid-feedback :state="usernameLength">
-            Username sould at least be 5 characters long.
+            {{ $t("register.feedBack.username", language) }}
           </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group class="form-group">
@@ -46,8 +51,7 @@
             :state="passwordRequirements"
           ></b-form-input>
           <b-form-invalid-feedback :state="passwordRequirements">
-            Password should at least contain 8 characters, uppercase, lowercase
-            and numbers.
+            {{ $t("register.feedBack.password1", language) }}
           </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group class="form-group">
@@ -62,7 +66,7 @@
             :state="passwordsMatch"
           ></b-form-input>
           <b-form-invalid-feedback :state="passwordsMatch">
-            Passwords don't match.
+            {{ $t("register.feedBack.password2", language) }}
           </b-form-invalid-feedback>
         </b-form-group>
         <b-button
@@ -83,9 +87,15 @@
 
 <script>
 import axios from "axios";
+import Alert from "@/components/Alert";
 
 export default {
   name: "RegisterView",
+
+  components: {
+    Alert,
+  },
+
   data() {
     return {
       email: "",
@@ -110,15 +120,17 @@ export default {
           password: this.pass1,
         },
       })
-        .then(() => {
-          this.$router.push("/signin");
-        })
-        .catch((error) => {
-          if (error.response.status == 400)
-            window.alert("email or username is allready taken.");
-          if (error.response.status == 401)
-            window.alert(error.response.data.error[0]);
-        });
+      .then(() => {
+        this.$router.push("/signin");
+      })
+      .catch((error) => {
+        if (error.response.status == 400)
+          this.$refs.alertComponent.showAlert("email or username is allready taken.");
+        else if (error.response.status == 401)
+          this.$refs.alertComponent.showAlert("you are unnothorized to do this, try again later.");
+        else
+          this.$refs.alertComponent.showAlert("Something went wrong, try again later.");
+      });
     },
   },
   computed: {
@@ -155,6 +167,6 @@ export default {
 </script>
 
 <style scoped>
-@import "@/styles/signup.css";
-@import "@/styles/commonSign.css";
+@import "@/styles/views/signup.css";
+@import "@/styles/views/commonSign.css";
 </style>

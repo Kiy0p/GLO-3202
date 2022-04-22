@@ -141,5 +141,5 @@ export default {
 </script>
 
 <style scoped>
-@import "@/styles/home.css";
+@import "@/styles/views/home.css";
 </style>

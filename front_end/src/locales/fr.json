@@ -27,6 +27,12 @@
     "formpassword2": "Entrer mot de passe (oui, encore)",
     "formButton": "S'enregistrer",
     "formFooter": "Retour à la connexion",
-    "formLogin": "Connexion"
+    "formLogin": "Connexion",
+    "feedBack": {
+      "email": "Entrer un email valide.",
+      "username": "Les noms doivent faire minimum 5 caractères de long.",
+      "password1": "Le mot de passe doit contenir au moins 8 caractères, majuscules, minuscules et chiffres.",
+      "password2": "Les mots de passe ne correspondent pas."
+    }
   }
 }

@@ -55,5 +55,5 @@ export default {
 </script>
 
 <style scoped>
-@import "@/styles/note.css";
+@import "@/styles/components/note.css";
 </style>
