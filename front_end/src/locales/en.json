@@ -1,4 +1,7 @@
 {
+  "header": {
+    "title": "Notes.io"
+  },
   "home": {
     "title": "Your notes",
     "formButton": "Create",
@@ -6,7 +9,12 @@
     "formContent": "Content",
     "formFooter": "Back to login",
     "formLogout": "Log out",
-    "noteButton": "Delete"
+    "noteButton": "Delete",
+    "alert": {
+      "notCreated": "Could not create note.",
+      "invalidForm": "Please, fill in fields.",
+      "noteError": "Could not delete note."
+    }
   },
   "note": {
     "deleteButton": "Delete"
@@ -17,7 +25,10 @@
     "formPassword": "Enter password",
     "formButton": "Login",
     "formFooter": "Don't have an account yet ?",
-    "formRegister": "Register"
+    "formRegister": "Register",
+    "alert": {
+      "invalid": "Invalid username or password."
+    }
   },
   "register": {
     "title": "Register",
@@ -33,6 +44,11 @@
       "username": "Username sould at least be 5 characters long.",
       "password1": "Password should at least contain 8 characters, uppercase, lowercase and numbers.",
       "password2": "Passwords don't match."
+    },
+    "alert": {
+      "emailTaken": "email or username is allready taken.",
+      "unnothorized": "you are unnothorized to do this, please login.",
+      "somethingWentWrong": "Something went wrong, try again later."
     }
   }
 }

@@ -4,6 +4,10 @@
   margin-top: -105px;
 }
 
+.alert {
+  font-family: "RobotoBold";
+}
+
 @media screen and (max-width: 1400px) {
   #alert-container {
     margin-top: -125px;

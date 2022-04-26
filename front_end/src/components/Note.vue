@@ -17,7 +17,7 @@
 import axios from "axios";
 
 export default {
-  name: "NoteView",
+  name: "NoteComponent",
 
   props: ["title", "content", "id", "token"],
 
@@ -43,7 +43,7 @@ export default {
           this.$emit("noteDeleted");
         })
         .catch(() => {
-          this.$router.replace({ name: "signin" });
+          this.$emit("noteError");
         });
     },
   },

@@ -1,4 +1,7 @@
 {
+  "header": {
+    "title": "Notes.io"
+  },
   "home": {
     "title": "Vos notes",
     "formButton": "Créer",
@@ -6,7 +9,12 @@
     "formContent": "Contenu",
     "formFooter": "Retour au login",
     "formLogout": "Deconnexion",
-    "noteButton": "Supprimer"
+    "noteButton": "Supprimer",
+    "alert": {
+      "notCreated": "Un problème s'est produit, la note n'a pas étée créée.",
+      "invalidForm": "Remplissez les champs.",
+      "noteError": "La note n'a pas pu être supprimée"
+    }
   },
   "note": {
     "deleteButton": "Supprimer"
@@ -17,7 +25,10 @@
     "formPassword": "Mot de passe",
     "formButton": "Connexion",
     "formFooter": "Vous n'avez pas de compte ?",
-    "formRegister": "M'enregistrer"
+    "formRegister": "M'enregistrer",
+    "alert": {
+      "invalid": "nom d'utilisateur ou mot de passe invalid."
+    }
   },
   "register": {
     "title": "S'enregistrer",
@@ -33,6 +44,11 @@
       "username": "Les noms doivent faire minimum 5 caractères de long.",
       "password1": "Le mot de passe doit contenir au moins 8 caractères, majuscules, minuscules et chiffres.",
       "password2": "Les mots de passe ne correspondent pas."
+    },
+    "alert": {
+      "emailTaken": "email ou nom d'utilisateur déjà pris.",
+      "unnothorized": "Vous n'avez pas les autorisations pour faire ça, connectez-vous.",
+      "somethingWentWrong": "Oops, quelque chose s'est mal passé, réessayer plus tard."
     }
   }
 }

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "footerView",
+  name: "footerComponent",
 };
 </script>

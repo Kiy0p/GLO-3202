@@ -1,9 +1,6 @@
 <template>
   <div>
-    <Alert
-      variant="danger"
-      ref="alertComponent"
-    />
+    <Alert variant="danger" ref="alertComponent" />
     <h1 id="form-title">{{ $t("login.title", language) }}</h1>
     <div id="form-container">
       <b-form id="login-form" class="w-75" @submit="postSignIn">
@@ -44,7 +41,9 @@
     </div>
     <div id="router-container">
       <p>{{ $t("login.formFooter", language) }}</p>
-      <router-link to="/signup">{{ $t("login.formRegister", language) }}</router-link>
+      <router-link to="/signup">{{
+        $t("login.formRegister", language)
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -75,15 +74,17 @@ export default {
         url: process.env.VUE_APP_ROOT_API + "/api/sign/in",
         data: { username: this.username, password: this.password },
       })
-      .then((response) => {
-        window.$cookies.set("notes_token", response.data["token"]);
-        this.$router.replace({ name: "home" });
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          this.$refs.alertComponent.showAlert("Invalid username or password.");
-        }
-      });
+        .then((response) => {
+          window.$cookies.set("notes_token", response.data["token"]);
+          this.$router.replace({ name: "home" });
+        })
+        .catch((error) => {
+          if (error.response.status == 401) {
+            this.$refs.alertComponent.showAlert(
+              this.$t("login.alert.invalid", this.language)
+            );
+          }
+        });
     },
   },
   mounted() {

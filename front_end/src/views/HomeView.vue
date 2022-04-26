@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Alert variant="danger" ref="alertComponent" />
     <h1 id="title">{{ $t("home.title", language) }}</h1>
     <div id="form-container">
       <b-form id="form" @submit="createNote()">
@@ -27,7 +28,8 @@
           variant="outline-primary"
           type="submit"
           size="lg"
-        >{{ $t("home.formButton", language) }}</b-button>
+          >{{ $t("home.formButton", language) }}</b-button
+        >
       </b-form>
       <hr size="4" width="90%" color="2c3e50" />
     </div>
@@ -40,6 +42,7 @@
         :id="note.id"
         :token="token"
         @noteDeleted="getNotes()"
+        @noteError="noteError()"
       />
     </div>
     <div v-if="notes == []">
@@ -47,13 +50,16 @@
     </div>
     <div id="router-container">
       <p>{{ $t("home.formFooter", language) }}</p>
-      <router-link to="/signin" v-on:click="logout()">{{ $t("home.formLogout", language) }}</router-link>
+      <router-link to="/signin" v-on:click="logout()">{{
+        $t("home.formLogout", language)
+      }}</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Note from "@/components/NoteView.vue";
+import Note from "@/components/Note.vue";
+import Alert from "@/components/Alert.vue";
 
 import axios from "axios";
 export default {
@@ -71,6 +77,7 @@ export default {
 
   components: {
     Note,
+    Alert,
   },
 
   methods: {
@@ -83,16 +90,16 @@ export default {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
-        if (response.status == 200) {
-          this.notes = response.data;
-        } else {
+        .then((response) => {
+          if (response.status == 200) {
+            this.notes = response.data;
+          } else {
+            this.$router.replace({ name: "signin" });
+          }
+        })
+        .catch(() => {
           this.$router.replace({ name: "signin" });
-        }
-      })
-      .catch(() => {
-        this.$router.replace({ name: "signin" });
-      });
+        });
     },
 
     async createNote() {
@@ -113,13 +120,15 @@ export default {
             this.getNotes();
             this.clearInputs();
           } else {
-            window.alert(
-              "Note couldn't be created, status:" + response.statusText
+            this.$refs.alertComponent.showAlert(
+              this.$t("home.alert.notCreated", this.language)
             );
           }
         })
         .catch(() => {
-          this.$router.replace({ name: "signin" });
+          this.$refs.alertComponent.showAlert(
+            this.$t("home.alert.invalidForm", this.language)
+          );
         });
     },
     clearInputs() {
@@ -128,7 +137,10 @@ export default {
     },
     logout() {
       window.$cookies.remove("notes_token");
-      this.$store.commit("setAuthentication", false);
+      this.$router.replace({ name: "signin" });
+    },
+    noteError() {
+      this.$refs.alertComponent.showAlert(this.$t("home.alert.noteError"));
     },
   },
 

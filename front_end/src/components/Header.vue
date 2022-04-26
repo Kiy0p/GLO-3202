@@ -14,13 +14,13 @@
         :src="require('@/assets/images/english_flag.png')"
       />
     </div>
-    <h1 id="site-title">Notes.io</h1>
+    <h1 id="site-title">{{ $t("header.title", language) }}</h1>
   </header>
 </template>
 
 <script>
 export default {
-  name: "headerView",
+  name: "headerComponent",
   methods: {
     changeLanguage(language) {
       window.$cookies.set("lang", language, Infinity);

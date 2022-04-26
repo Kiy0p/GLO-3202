@@ -1,10 +1,6 @@
 <template>
   <div>
-    <Alert
-      variant="danger"
-      content="Invalid username or password."
-      ref="alertComponent"
-    />
+    <Alert variant="danger" ref="alertComponent" />
     <h1 id="form-title">{{ $t("register.title", language) }}</h1>
     <div id="form-container">
       <b-form id="register-form" class="w-75" @submit="postSignUp">
@@ -80,7 +76,9 @@
     </div>
     <div id="router-container">
       <p>{{ $t("register.formFooter", language) }}</p>
-      <router-link to="/signin">{{ $t("register.formLogin", language) }}</router-link>
+      <router-link to="/signin">{{
+        $t("register.formLogin", language)
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -120,23 +118,33 @@ export default {
           password: this.pass1,
         },
       })
-      .then(() => {
-        this.$router.push("/signin");
-      })
-      .catch((error) => {
-        if (error.response.status == 400)
-          this.$refs.alertComponent.showAlert("email or username is allready taken.");
-        else if (error.response.status == 401)
-          this.$refs.alertComponent.showAlert("you are unnothorized to do this, try again later.");
-        else
-          this.$refs.alertComponent.showAlert("Something went wrong, try again later.");
-      });
+        .then(() => {
+          this.$router.push("/signin");
+        })
+        .catch((error) => {
+          if (error.response.status == 400)
+            this.$refs.alertComponent.showAlert(
+              this.$t("register.alert.emailTaken", this.language)
+            );
+          else if (error.response.status == 401)
+            this.$refs.alertComponent.showAlert(
+              this.$t("register.alert.unnothorized", this.language)
+            );
+          else
+            this.$refs.alertComponent.showAlert(
+              this.$t("register.alert.somethingWentWrong", this.language)
+            );
+        });
     },
   },
   computed: {
     emailCorrect() {
       if (this.email === "") return null;
-      if (!this.email.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))
+      if (
+        !this.email.match(
+          /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        )
+      )
         return false;
       return true;
     },
